@@ -1,0 +1,8 @@
+{
+    "kindle_email": "",
+    "sqs_arn": "",
+    "sqs_url": "",
+    "s3_bucket": "",
+    "ses_region": "",
+    "email_sender": "" 
+}

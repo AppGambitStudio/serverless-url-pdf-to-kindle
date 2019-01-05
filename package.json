@@ -1,0 +1,30 @@
+{
+  "name": "blog-pdf-kindle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "content-type": "^1.0.4",
+    "express": "^4.16.4",
+    "html-pdf": "^2.2.0",
+    "lodash": "^4.17.11",
+    "nodemailer": "^4.7.0",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "phantom-html-to-pdf": "^0.5.6",
+    "phantomjs-prebuilt": "^2.1.16",
+    "raw-body": "^2.3.3",
+    "serverless-http": "^1.8.0",
+    "serverless-pseudo-parameters": "^2.4.0"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.381.0",
+    "serverless-offline": "^3.31.3"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,65 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+frameworkVersion: ">=1.32.0"
+
+service: blog-pdf-kindle1
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: dev
+  environment:
+    STAGE: ${opt:stage}
+  region: us-east-1
+  timeout: 60
+  iamRoleStatements: # permissions for all of your functions can be set here
+    - Effect: Allow
+      Resource: "*"
+      Action:
+        - "s3:Put*"
+        - "s3:Get*"
+    - Effect: Allow
+      Resource: "*"
+      Action:
+        - "ses:*"
+      
+custom:
+  configs: ${file(./config/${opt:stage}.json)}
+  
+functions:  
+  app:
+    handler: functions/index.handler
+    events:
+      - http: 
+          path: /
+          method: post    
+
+  convertPDF:
+    handler: functions/url_to_pdf.handler
+    events:
+      - sqs: 
+          arn: "arn:aws:sqs:#{AWS::Region}:#{AWS::AccountId}:${self:custom.configs.sqs_queue}"
+          batchSize: 1
+          enabled: true
+          
+  sendToKindle:
+    handler: functions/mailer.handler
+    events:
+      - s3:
+          bucket: blogtopdftokindle
+          event: s3:ObjectCreated:*
+
+plugins:
+  - serverless-pseudo-parameters
+  - serverless-offline
