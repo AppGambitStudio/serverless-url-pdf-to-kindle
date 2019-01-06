@@ -7,15 +7,12 @@ nodemailer  = require('nodemailer');
 const ses   = new AWS.SES({
     region: config.ses_region
 });
+
 var s3      = new AWS.S3();
 
 const getS3File = (bucket, key) => {
     return new Promise(function (resolve, reject) {
-        s3.getObject(
-            {
-                Bucket: bucket,
-                Key: key
-            },
+        s3.getObject({Bucket: bucket, Key: key},
             function (err, data) {
                 if (err) return reject(err);
                 else return resolve(data);
@@ -32,20 +29,20 @@ module.exports.handler = (event, context, callback) => {
     getS3File(reqData.bucket.name, reqData.object.key)
     .then((fileData) => {
         
+        // setup email parameters
         var mailOptions = {
             from: config.email_sender,
             to: config.kindle_email,
             subject: reqData.object.key,
             text: reqData.object.key,
-            attachments: [
-                {
-                    filename: reqData.object.key,
-                    content: fileData.Body,
-                    contentType: 'application/pdf'
-                }
-            ]
+            attachments: [{
+                filename: reqData.object.key,
+                content: fileData.Body,
+                contentType: 'application/pdf'
+            }]
         };
 
+        // prepare transporter
         var transporter = nodemailer.createTransport({
             SES: ses
         });

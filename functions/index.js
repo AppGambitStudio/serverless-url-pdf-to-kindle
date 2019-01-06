@@ -30,8 +30,8 @@ app.post('/', (req, res) => {
                 res.send(500);
             }else{
                 console.log('Message Sent');
-            }
-            res.send(200);       
+                res.send(200);
+            }            
         });
     }    
 });
