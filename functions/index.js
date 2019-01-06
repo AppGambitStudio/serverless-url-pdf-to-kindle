@@ -16,14 +16,12 @@ const sqs = new AWS.SQS({});
 app.post('/', (req, res) => {
     const { url, title  } = req.body;
 
-    title = title.replace(' ' , '_');
-    
     if(!url) {
         res.send(400);
         return;
     }else{
         var params = {
-            MessageBody: JSON.stringify({url, title}),
+            MessageBody: JSON.stringify({url, title: title.replace(' ', '_')}),
             QueueUrl: config.sqs_url
         };
         sqs.sendMessage(params, (err, data) => {

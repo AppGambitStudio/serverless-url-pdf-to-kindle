@@ -33,6 +33,10 @@ provider:
       Resource: "*"
       Action:
         - "ses:*"
+    - Effect: Allow
+      Resource: "*"
+      Action:
+        - "sqs:*"
       
 custom:
   configs: ${file(./config/${opt:stage}.json)}
