@@ -1,8 +1,8 @@
 {
-    "kindle_email": "",
-    "sqs_arn": "",
-    "sqs_url": "",
-    "s3_bucket": "",
-    "ses_region": "",
-    "email_sender": "" 
+    "kindle_email": "<kindle device email>",
+    "sqs_queue": "<name of the SQS queue>",
+    "sqs_url": "<SQS queue URL>",
+    "s3_bucket": "<name of the S3 bucket>",
+    "ses_region": "<SES configured region>",
+    "email_sender": "<sender email>" 
 }
