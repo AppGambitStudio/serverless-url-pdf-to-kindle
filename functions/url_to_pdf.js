@@ -15,7 +15,19 @@ module.exports.handler = (event, context, callback) => {
 
     // prepare PhantomJS
     const conversion = require("phantom-html-to-pdf")({
-        phantomPath: phantomjsPath
+        phantomPath: phantomjsPath,
+
+        viewportSize: {
+            width: 600,
+            height: 600
+        },
+        format: {
+            quality: 100
+        },
+        // paperSize: {
+        //     format, orientation, margin, width, height, headerHeight, footerHeight
+        // },
+        fitToPage: true
     });
 
     conversion({
