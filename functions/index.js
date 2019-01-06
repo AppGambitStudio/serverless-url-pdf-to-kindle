@@ -21,7 +21,7 @@ app.post('/', (req, res) => {
         return;
     }else{
         var params = {
-            MessageBody: JSON.stringify({url, title: title.replace(' ', '_')}),
+            MessageBody: JSON.stringify({url, title: title.replace(/ /g, '_') }),
             QueueUrl: config.sqs_url
         };
         sqs.sendMessage(params, (err, data) => {
